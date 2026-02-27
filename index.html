@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alexandru Râmbu — Software Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #F7F5F0; --ink: #1A1A18; --muted: #8A8880;
+      --accent: #2D5BE3; --accent-light: #EEF2FC;
+      --border: #E2DED8; --white: #FFFFFF;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--ink); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 3rem; background: rgba(247,245,240,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.1rem; letter-spacing: -0.01em; }
+    .nav-right { display: flex; align-items: center; gap: 2.5rem; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--muted); text-decoration: none; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--ink); }
+    .lang-toggle { display: flex; align-items: center; gap: 0.2rem; background: var(--white); border: 1px solid var(--border); border-radius: 2px; padding: 0.2rem; }
+    .lang-btn { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.06em; padding: 0.25rem 0.65rem; border: none; background: transparent; color: var(--muted); cursor: pointer; border-radius: 1px; transition: all 0.15s; }
+    .lang-btn.active { background: var(--ink); color: var(--bg); }
+    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 3rem; max-width: 1100px; margin: 0 auto; }
+    .hero-label { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.6s ease forwards 0.2s; }
+    .hero-name { font-family: 'DM Serif Display', serif; font-size: clamp(3.5rem, 7vw, 6.5rem); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.7s ease forwards 0.35s; }
+    .hero-name em { font-style: italic; color: var(--muted); }
+    .hero-desc { font-size: 1.1rem; color: var(--muted); max-width: 480px; line-height: 1.7; margin-bottom: 2.5rem; opacity: 0; animation: fadeUp 0.7s ease forwards 0.5s; }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.7s ease forwards 0.65s; }
+    .hero-scroll { position: absolute; bottom: 2.5rem; left: 3rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; display: flex; align-items: center; gap: 0.75rem; opacity: 0; animation: fadeUp 0.7s ease forwards 0.9s; }
+    .hero-scroll::before { content: ''; width: 32px; height: 1px; background: var(--muted); }
+    .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; font-family: 'DM Mono', monospace; font-size: 0.75rem; letter-spacing: 0.04em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: all 0.2s; cursor: pointer; border: none; }
+    .btn-primary { background: var(--ink); color: var(--bg); }
+    .btn-primary:hover { background: var(--accent); }
+    .btn-secondary { background: transparent; color: var(--ink); border: 1px solid var(--border); }
+    .btn-secondary:hover { border-color: var(--ink); }
+    section { padding: 6rem 3rem; max-width: 1100px; margin: 0 auto; }
+    .section-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 3rem; display: flex; align-items: center; gap: 1rem; }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); max-width: 120px; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .about-text h2 { font-family: 'DM Serif Display', serif; font-size: 2.2rem; line-height: 1.2; margin-bottom: 1.25rem; letter-spacing: -0.02em; }
+    .about-text p { color: var(--muted); line-height: 1.75; margin-bottom: 1rem; }
+    .about-stack { padding-top: 0.5rem; }
+    .stack-group { margin-bottom: 2rem; }
+    .stack-group h4 { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; }
+    .stack-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tag { font-family: 'DM Mono', monospace; font-size: 0.72rem; padding: 0.3rem 0.75rem; background: var(--white); border: 1px solid var(--border); border-radius: 2px; color: var(--ink); }
+    .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .project-card { background: var(--white); border: 1px solid var(--border); border-radius: 4px; padding: 2rem; transition: border-color 0.2s, transform 0.2s; position: relative; overflow: hidden; }
+    .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
+    .project-card:hover { border-color: #C8C4BC; transform: translateY(-2px); }
+    .project-card:hover::before { transform: scaleX(1); }
+    .project-number { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--muted); letter-spacing: 0.08em; margin-bottom: 1rem; }
+    .project-title { font-family: 'DM Serif Display', serif; font-size: 1.4rem; margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+    .project-role { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--accent); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1rem; }
+    .project-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.65; margin-bottom: 1.25rem; }
+    .project-highlights { margin: 1rem 0; padding-left: 0; list-style: none; }
+    .project-highlights li { font-size: 0.85rem; color: var(--muted); padding: 0.25rem 0 0.25rem 1rem; position: relative; }
+    .project-highlights li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 0.75rem; }
+    .project-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.25rem; }
+    .project-tech span { font-family: 'DM Mono', monospace; font-size: 0.65rem; padding: 0.2rem 0.6rem; background: var(--accent-light); color: var(--accent); border-radius: 2px; }
+    .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .contact-text h2 { font-family: 'DM Serif Display', serif; font-size: 2.5rem; line-height: 1.15; margin-bottom: 1rem; letter-spacing: -0.02em; }
+    .contact-text p { color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
+    .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-link { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.25rem; background: var(--white); border: 1px solid var(--border); border-radius: 3px; text-decoration: none; color: var(--ink); transition: all 0.2s; }
+    .contact-link:hover { border-color: var(--accent); color: var(--accent); }
+    .contact-link-icon { font-size: 1rem; width: 20px; text-align: center; }
+    .contact-link-label { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.04em; }
+    .contact-link-arrow { margin-left: auto; font-size: 0.75rem; color: var(--muted); }
+    footer { border-top: 1px solid var(--border); padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; }
+    footer p { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--muted); letter-spacing: 0.05em; }
+    .full-divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+      .nav-right { gap: 1.5rem; }
+      section { padding: 4rem 1.5rem; }
+      .hero { padding: 0 1.5rem; }
+      .hero-scroll { left: 1.5rem; }
+      .about-grid, .projects-grid, .contact-inner { grid-template-columns: 1fr; gap: 2rem; }
+      footer { padding: 1.25rem 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <span class="nav-logo">Alexandru</span>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#about" data-i18n="nav.about">About</a></li>
+        <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
+        <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+      <div class="lang-toggle">
+        <button class="lang-btn active" id="btn-en">EN</button>
+        <button class="lang-btn" id="btn-fr">FR</button>
+      </div>
+    </div>
+  </nav>
+
+  <div style="position:relative;">
+    <div class="hero">
+      <p class="hero-label" data-i18n="hero.label">Software Engineer · Montréal</p>
+      <h1 class="hero-name">
+        <span data-i18n="hero.line1">Building things</span><br/>
+        <span data-i18n="hero.line2pre">that </span><em data-i18n="hero.line2em">actually work.</em>
+      </h1>
+      <p class="hero-desc" data-i18n="hero.desc">4th-year Computer Engineering student at Polytechnique Montréal. I build full-stack web apps, real-time systems, and everything in between.</p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary" data-i18n="hero.cta1">View Projects</a>
+        <a href="#contact" class="btn btn-secondary" data-i18n="hero.cta2">Get in touch</a>
+      </div>
+    </div>
+    <span class="hero-scroll" data-i18n="hero.scroll">Scroll to explore</span>
+  </div>
+
+  <hr class="full-divider"/>
+
+  <section id="about">
+    <p class="section-label reveal" data-i18n="about.label">About</p>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <h2 data-i18n="about.title">Hi, I'm Alexandru.</h2>
+        <p data-i18n="about.p1">I'm a software engineering student at Polytechnique Montréal, graduation expected 2027. I'm passionate about building clean, performant web applications — from the database layer to the user interface.</p>
+        <p data-i18n="about.p2">My background spans real-time multiplayer systems, RESTful APIs, robotics integration, and everything that connects them. I care about code that's readable, systems that scale, and products that feel right.</p>
+        <p data-i18n="about.p3">Currently open to freelance contracts and internship opportunities.</p>
+        <br/>
+        <a href="mailto:alexrambu@outlook.com" class="btn btn-primary">alexrambu@outlook.com</a>
+      </div>
+      <div class="about-stack reveal">
+        <div class="stack-group">
+          <h4 data-i18n="stack.frontend">Frontend</h4>
+          <div class="stack-tags">
+            <span class="tag">Angular</span><span class="tag">TypeScript</span>
+            <span class="tag">RxJS</span><span class="tag">HTML/CSS</span>
+          </div>
+        </div>
+        <div class="stack-group">
+          <h4 data-i18n="stack.backend">Backend</h4>
+          <div class="stack-tags">
+            <span class="tag">Node.js</span><span class="tag">Express</span>
+            <span class="tag">Python</span><span class="tag">Socket.IO</span>
+            <span class="tag">REST APIs</span>
+          </div>
+        </div>
+        <div class="stack-group">
+          <h4 data-i18n="stack.db">Database &amp; Systems</h4>
+          <div class="stack-tags">
+            <span class="tag">MongoDB</span><span class="tag">SQLite</span>
+            <span class="tag">SQLAlchemy</span><span class="tag">Linux</span>
+          </div>
+        </div>
+        <div class="stack-group">
+          <h4 data-i18n="stack.other">Also familiar with</h4>
+          <div class="stack-tags">
+            <span class="tag">C / C++</span><span class="tag">ROS</span>
+            <span class="tag">Git</span><span class="tag">Agile / Scrum</span>
+            <span class="tag">Java</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="full-divider"/>
+
+  <section id="projects">
+    <p class="section-label reveal" data-i18n="projects.label">Selected Work</p>
+    <div class="projects-grid">
+      <div class="project-card reveal">
+        <p class="project-number">01 / LOG2990 · Automne 2024</p>
+        <h3 class="project-title" data-i18n="p1.title">Tactical RPG Platform</h3>
+        <p class="project-role" data-i18n="p1.role">Full-Stack Developer — Web &amp; Real-Time Systems</p>
+        <p class="project-desc" data-i18n="p1.desc">A full-featured multiplayer turn-based RPG built from scratch in a team of 6. Players battle on custom-designed grid maps, with a complete in-browser map editor, real-time game state synchronization, and a virtual AI opponent.</p>
+        <ul class="project-highlights">
+          <li data-i18n="p1.h1">Real-time multiplayer via WebSockets (Socket.IO)</li>
+          <li data-i18n="p1.h2">Pathfinding with Dijkstra's algorithm for movement preview</li>
+          <li data-i18n="p1.h3">Drag-and-drop map editor with validation logic</li>
+          <li data-i18n="p1.h4">Virtual player AI with aggressive/defensive profiles</li>
+          <li data-i18n="p1.h5">Game statistics dashboard and post-game reports</li>
+        </ul>
+        <div class="project-tech">
+          <span>Angular</span><span>TypeScript</span><span>Node.js</span>
+          <span>Socket.IO</span><span>MongoDB</span>
+        </div>
+      </div>
+      <div class="project-card reveal">
+        <p class="project-number">02 / INF3995 · Hiver 2025</p>
+        <h3 class="project-title" data-i18n="p2.title">Multi-Robot Exploration System</h3>
+        <p class="project-role" data-i18n="p2.role">Frontend Developer — Angular UI &amp; Real-Time Interfaces</p>
+        <p class="project-desc" data-i18n="p2.desc">Autonomous multi-robot exploration platform simulating a space mission. Built the full Angular web dashboard — real-time robot monitoring, mission control, live map display and mission history, integrated with a Python/ROS2 backend.</p>
+        <ul class="project-highlights">
+          <li data-i18n="p2.h1">Real-time robot state display updated at 1Hz via WebSockets</li>
+          <li data-i18n="p2.h2">Live map fusion display streamed from 2 autonomous robots</li>
+          <li data-i18n="p2.h3">Mission history page with log viewer and robot telemetry</li>
+          <li data-i18n="p2.h4">Shared TypeScript schemas auto-generated from Python server models</li>
+        </ul>
+        <div class="project-tech">
+          <span>Angular</span><span>TypeScript</span><span>Python</span>
+          <span>WebSockets</span><span>ROS2</span><span>Docker</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="full-divider"/>
+
+  <section id="contact">
+    <p class="section-label reveal" data-i18n="contact.label">Contact</p>
+    <div class="contact-inner">
+      <div class="contact-text reveal">
+        <h2>
+          <span data-i18n="contact.title">Let's work</span><br/>
+          <em style="font-family:'DM Serif Display',serif;color:var(--muted);font-style:italic;" data-i18n="contact.titleem">together.</em>
+        </h2>
+        <p data-i18n="contact.p1">I'm available for freelance contracts — web apps, automation scripts, dashboards, APIs. Based in Montréal, working in French and English.</p>
+        <p data-i18n="contact.p2">If you have a project in mind, let's talk.</p>
+      </div>
+      <div class="contact-links reveal">
+        <a href="mailto:alexrambu@outlook.com" class="contact-link">
+          <span class="contact-link-icon">✉</span>
+          <span class="contact-link-label">alexrambu@outlook.com</span>
+          <span class="contact-link-arrow">↗</span>
+        </a>
+        <a href="https://www.linkedin.com/in/ioan-alexandru-rambu-753190269/" target="_blank" class="contact-link">
+          <span class="contact-link-icon">in</span>
+          <span class="contact-link-label">linkedin.com/in/ioan-alexandru-rambu</span>
+          <span class="contact-link-arrow">↗</span>
+        </a>
+        <a href="https://github.com/AlexandruPoly" target="_blank" class="contact-link">
+          <span class="contact-link-icon">&#9661;</span>
+          <span class="contact-link-label">github.com/AlexandruPoly</span>
+          <span class="contact-link-arrow">↗</span>
+        </a>
+        <a href="cv_alexandru_rambu.pdf" download class="contact-link">
+          <span class="contact-link-icon">↓</span>
+          <span class="contact-link-label" data-i18n="contact.cv">Download Resume (PDF)</span>
+          <span class="contact-link-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="full-divider"/>
+
+  <footer>
+    <p>© 2025 Alexandru Râmbu · Polytechnique Montréal</p>
+    <p data-i18n="footer.built">Designed &amp; built by Alexandru</p>
+  </footer>
+  <script>
+    var T = {
+      en: {
+        "nav.about":"About","nav.projects":"Projects","nav.contact":"Contact",
+        "hero.label":"Software Engineer · Montréal",
+        "hero.line1":"Building things","hero.line2pre":"that ","hero.line2em":"actually work.",
+        "hero.desc":"4th-year Computer Engineering student at Polytechnique Montréal. I build full-stack web apps, real-time systems, and everything in between.",
+        "hero.cta1":"View Projects","hero.cta2":"Get in touch","hero.scroll":"Scroll to explore",
+        "about.label":"About","about.title":"Hi, I'm Alexandru.",
+        "about.p1":"I'm a software engineering student at Polytechnique Montréal, graduation expected 2027. I'm passionate about building clean, performant web applications — from the database layer to the user interface.",
+        "about.p2":"My background spans real-time multiplayer systems, RESTful APIs, robotics integration, and everything that connects them. I care about code that's readable, systems that scale, and products that feel right.",
+        "about.p3":"Currently open to freelance contracts and internship opportunities.",
+        "stack.frontend":"Frontend","stack.backend":"Backend","stack.db":"Database & Systems","stack.other":"Also familiar with",
+        "projects.label":"Selected Work",
+        "p1.title":"Tactical RPG Platform","p1.role":"Full-Stack Developer — Web & Real-Time Systems",
+        "p1.desc":"A full-featured multiplayer turn-based RPG built from scratch in a team of 6. Players battle on custom-designed grid maps, with a complete in-browser map editor, real-time game state synchronization, and a virtual AI opponent.",
+        "p1.h1":"Real-time multiplayer via WebSockets (Socket.IO)",
+        "p1.h2":"Pathfinding with Dijkstra's algorithm for movement preview",
+        "p1.h3":"Drag-and-drop map editor with validation logic",
+        "p1.h4":"Virtual player AI with aggressive/defensive profiles",
+        "p1.h5":"Game statistics dashboard and post-game reports",
+        "p2.title":"Multi-Robot Exploration System","p2.role":"Frontend Developer — Angular UI & Real-Time Interfaces",
+        "p2.desc":"Autonomous multi-robot exploration platform simulating a space mission. Built the full Angular web dashboard — real-time robot monitoring, mission control, live map display and mission history, integrated with a Python/ROS2 backend.",
+        "p2.h1":"Real-time robot state display updated at 1Hz via WebSockets",
+        "p2.h2":"Live map fusion display streamed from 2 autonomous robots",
+        "p2.h3":"Mission history page with log viewer and robot telemetry",
+        "p2.h4":"Shared TypeScript schemas auto-generated from Python server models",
+        "contact.label":"Contact","contact.title":"Let's work","contact.titleem":"together.",
+        "contact.p1":"I'm available for freelance contracts — web apps, automation scripts, dashboards, APIs. Based in Montréal, working in French and English.",
+        "contact.p2":"If you have a project in mind, let's talk.",
+        "contact.cv":"Download Resume (PDF)","footer.built":"Designed & built by Alexandru"
+      },
+      fr: {
+        "nav.about":"À propos","nav.projects":"Projets","nav.contact":"Contact",
+        "hero.label":"Développeur Web · Montréal",
+        "hero.line1":"Je construis des choses","hero.line2pre":"qui ","hero.line2em":"fonctionnent vraiment.",
+        "hero.desc":"Étudiant en génie informatique à Polytechnique Montréal, en 4e année. Je développe des applications web full-stack, des systèmes temps réel, et tout ce qui s'y connecte.",
+        "hero.cta1":"Voir les projets","hero.cta2":"Me contacter","hero.scroll":"Défiler pour explorer",
+        "about.label":"À propos","about.title":"Bonjour, je suis Alexandru.",
+        "about.p1":"Étudiant en génie informatique à Polytechnique Montréal, graduation prévue en 2027. Je suis passionné par la création d'applications web performantes — de la base de données jusqu'à l'interface utilisateur.",
+        "about.p2":"Mon parcours couvre les systèmes multijoueurs temps réel, les APIs REST, l'intégration robotique, et tout ce qui les relie. J'accorde de l'importance à un code lisible, des systèmes qui passent à l'échelle, et des produits qui se sentent bien.",
+        "about.p3":"Disponible pour des contrats freelance et des opportunités de stage.",
+        "stack.frontend":"Frontend","stack.backend":"Backend","stack.db":"Base de données & Systèmes","stack.other":"Aussi à l'aise avec",
+        "projects.label":"Projets sélectionnés",
+        "p1.title":"Plateforme de RPG Tactique","p1.role":"Développeur Full-Stack — Web & Systèmes Temps Réel",
+        "p1.desc":"Un jeu de rôle tactique multijoueur complet développé en équipe de 6. Les joueurs s'affrontent sur des cartes personnalisées, avec un éditeur intégré, une synchronisation d'état de jeu en temps réel et un adversaire IA.",
+        "p1.h1":"Multijoueur temps réel via WebSockets (Socket.IO)",
+        "p1.h2":"Algorithme de Dijkstra pour la prévisualisation de déplacement",
+        "p1.h3":"Éditeur de carte drag-and-drop avec validation",
+        "p1.h4":"IA de joueur virtuel avec profils agressif/défensif",
+        "p1.h5":"Tableau de bord de statistiques et rapports de fin de partie",
+        "p2.title":"Système d'Exploration Multi-Robot","p2.role":"Développeur Frontend — Interface Angular & Temps Réel",
+        "p2.desc":"Plateforme d'exploration multi-robot simulant une mission spatiale. Développement du tableau de bord Angular complet — surveillance temps réel, contrôle de mission, affichage de carte fusionnée et historique des missions.",
+        "p2.h1":"Affichage de l'état des robots en temps réel via WebSockets (1Hz)",
+        "p2.h2":"Affichage de la carte fusionnée en direct depuis 2 robots autonomes",
+        "p2.h3":"Page d'historique des missions avec journal de logs et télémétrie",
+        "p2.h4":"Schémas TypeScript partagés générés automatiquement depuis le serveur Python",
+        "contact.label":"Contact","contact.title":"Travaillons","contact.titleem":"ensemble.",
+        "contact.p1":"Disponible pour des contrats freelance — applications web, scripts d'automatisation, tableaux de bord, APIs. Basé à Montréal, je travaille en français et en anglais.",
+        "contact.p2":"Si vous avez un projet en tête, parlons-en.",
+        "contact.cv":"Télécharger le CV (PDF)","footer.built":"Conçu et développé par Alexandru"
+      }
+    };
+
+    function setLang(lang) {
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        var key = el.getAttribute('data-i18n');
+        if (T[lang][key] !== undefined) el.textContent = T[lang][key];
+      });
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+      document.getElementById('btn-fr').classList.toggle('active', lang === 'fr');
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('btn-en').addEventListener('click', function() { setLang('en'); });
+      document.getElementById('btn-fr').addEventListener('click', function() { setLang('fr'); });
+
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry, i) {
+          if (entry.isIntersecting) {
+            setTimeout(function() { entry.target.classList.add('visible'); }, i * 80);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+    });
+  </script>
+</body>
+</html>
