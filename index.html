@@ -49,6 +49,12 @@
     .stack-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
     .tag { font-family: 'DM Mono', monospace; font-size: 0.72rem; padding: 0.3rem 0.75rem; background: var(--white); border: 1px solid var(--border); border-radius: 2px; color: var(--ink); }
     .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .experience-list { display: grid; gap: 1rem; }
+    .experience-item { display: grid; grid-template-columns: 180px 1fr; gap: 2rem; padding: 1.5rem 0; border-top: 1px solid var(--border); }
+    .experience-period { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--muted); letter-spacing: 0.04em; }
+    .experience-title { font-family: 'DM Serif Display', serif; font-size: 1.5rem; margin-bottom: 0.25rem; }
+    .experience-company { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--accent); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.75rem; }
+    .experience-desc { color: var(--muted); line-height: 1.7; max-width: 720px; }
     .project-card { background: var(--white); border: 1px solid var(--border); border-radius: 4px; padding: 2rem; transition: border-color 0.2s, transform 0.2s; position: relative; overflow: hidden; }
     .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
     .project-card:hover { border-color: #C8C4BC; transform: translateY(-2px); }
@@ -85,6 +91,7 @@
       .hero { padding: 0 1.5rem; }
       .hero-scroll { left: 1.5rem; }
       .about-grid, .projects-grid, .contact-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .experience-item { grid-template-columns: 1fr; gap: 0.5rem; }
       footer { padding: 1.25rem 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
     }
   </style>
@@ -95,6 +102,7 @@
     <div class="nav-right">
       <ul class="nav-links">
         <li><a href="#about" data-i18n="nav.about">About</a></li>
+        <li><a href="#experience" data-i18n="nav.experience">Experience</a></li>
         <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
         <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
       </ul>
@@ -112,7 +120,7 @@
         <span data-i18n="hero.line1">Building things</span><br/>
         <span data-i18n="hero.line2pre">that </span><em data-i18n="hero.line2em">actually work.</em>
       </h1>
-      <p class="hero-desc" data-i18n="hero.desc">4th-year Computer Engineering student at Polytechnique Montréal. I build full-stack web apps, real-time systems, and everything in between.</p>
+      <p class="hero-desc" data-i18n="hero.desc">4th-year Computer Engineering student at Polytechnique Montréal, with 95 of 120 credits completed. I build full-stack web apps, real-time systems, and cross-platform software.</p>
       <div class="hero-cta">
         <a href="#projects" class="btn btn-primary" data-i18n="hero.cta1">View Projects</a>
         <a href="#contact" class="btn btn-secondary" data-i18n="hero.cta2">Get in touch</a>
@@ -128,8 +136,8 @@
     <div class="about-grid">
       <div class="about-text reveal">
         <h2 data-i18n="about.title">Hi, I'm Alexandru.</h2>
-        <p data-i18n="about.p1">I'm a software engineering student at Polytechnique Montréal, graduation expected 2027. I'm passionate about building clean, performant web applications — from the database layer to the user interface.</p>
-        <p data-i18n="about.p2">My background spans real-time multiplayer systems, RESTful APIs, robotics integration, and everything that connects them. I care about code that's readable, systems that scale, and products that feel right.</p>
+        <p data-i18n="about.p1">I'm a 4th-year Computer Engineering student at Polytechnique Montréal, with 95 of 120 credits completed. I'm passionate about building clean, maintainable software, from the database layer to the user interface.</p>
+        <p data-i18n="about.p2">My background spans real-time multiplayer systems, robotics integration, cross-platform desktop software, and RESTful APIs. I care about code that's readable, systems that scale, and products that feel right.</p>
         <p data-i18n="about.p3">Currently open to new opportunities.</p>
         <br/>
         <a href="mailto:alexrambu@outlook.com" class="btn btn-primary">alexrambu@outlook.com</a>
@@ -146,15 +154,15 @@
           <h4 data-i18n="stack.backend">Backend</h4>
           <div class="stack-tags">
             <span class="tag">Node.js</span><span class="tag">Express</span>
-            <span class="tag">Python</span><span class="tag">Socket.IO</span>
+            <span class="tag">Python</span><span class="tag">C#</span><span class="tag">Avalonia</span><span class="tag">Socket.IO</span>
             <span class="tag">REST APIs</span>
           </div>
         </div>
         <div class="stack-group">
           <h4 data-i18n="stack.db">Database &amp; Systems</h4>
           <div class="stack-tags">
-            <span class="tag">MongoDB</span><span class="tag">SQLite</span>
-            <span class="tag">SQLAlchemy</span><span class="tag">Linux</span>
+            <span class="tag">PostgreSQL</span><span class="tag">MongoDB</span><span class="tag">SQLite</span>
+            <span class="tag">SQLAlchemy</span><span class="tag">Linux</span><span class="tag">Docker</span>
           </div>
         </div>
         <div class="stack-group">
@@ -166,6 +174,30 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <hr class="full-divider"/>
+
+  <section id="experience">
+    <p class="section-label reveal" data-i18n="experience.label">Experience</p>
+    <div class="experience-list">
+      <article class="experience-item reveal">
+        <p class="experience-period" data-i18n="experience.period">June — August 2026</p>
+        <div>
+          <h2 class="experience-title" data-i18n="experience.title">Software Development Intern</h2>
+          <p class="experience-company" data-i18n="experience.company">Devolutions · Lavaltrie, hybrid</p>
+          <p class="experience-desc" data-i18n="experience.desc">Developed C# and Avalonia features in response to client bugs and improvement requests. Built a cross-platform serial connection manager covering the terminal, connection flow, interface, and settings. Refactored certificate generation to add Linux support from a common foundation across three platforms.</p>
+        </div>
+      </article>
+      <article class="experience-item reveal">
+        <p class="experience-period" data-i18n="experience.otherPeriod">2022 — 2026</p>
+        <div>
+          <h2 class="experience-title" data-i18n="experience.otherTitle">Other Professional Experience</h2>
+          <p class="experience-company" data-i18n="experience.otherCompany">Sciences en Folie · Vidéotron · Université de Montréal</p>
+          <p class="experience-desc" data-i18n="experience.otherDesc">Science outreach, customer advising, and structured data processing, building clear communication, organization, and quality-control habits.</p>
+        </div>
+      </article>
     </div>
   </section>
 
@@ -192,7 +224,7 @@
         </div>
       </div>
       <div class="project-card reveal">
-        <p class="project-number">02 / INF3995 · Hiver 2025</p>
+        <p class="project-number">02 / INF3995 · Automne 2025</p>
         <h3 class="project-title" data-i18n="p2.title">Multi-Robot Exploration System</h3>
         <p class="project-role" data-i18n="p2.role">Frontend Developer — Angular UI &amp; Real-Time Interfaces</p>
         <p class="project-desc" data-i18n="p2.desc">Autonomous multi-robot exploration platform simulating a space mission. Built the full Angular web dashboard — real-time robot monitoring, mission control, live map display and mission history, integrated with a Python/ROS2 backend.</p>
@@ -251,22 +283,23 @@
   <hr class="full-divider"/>
 
   <footer>
-    <p>© 2025 Alexandru Râmbu · Polytechnique Montréal</p>
+    <p>© 2026 Alexandru Râmbu · Polytechnique Montréal</p>
     <p data-i18n="footer.built">Designed &amp; built by Alexandru</p>
   </footer>
   <script>
     var T = {
       en: {
-        "nav.about":"About","nav.projects":"Projects","nav.contact":"Contact",
+        "nav.about":"About","nav.experience":"Experience","nav.projects":"Projects","nav.contact":"Contact",
         "hero.label":"Software Engineer · Montréal",
         "hero.line1":"Building things","hero.line2pre":"that ","hero.line2em":"actually work.",
-        "hero.desc":"4th-year Computer Engineering student at Polytechnique Montréal. I build full-stack web apps, real-time systems, and everything in between.",
+        "hero.desc":"4th-year Computer Engineering student at Polytechnique Montréal, with 95 of 120 credits completed. I build full-stack web apps, real-time systems, and cross-platform software.",
         "hero.cta1":"View Projects","hero.cta2":"Get in touch","hero.scroll":"Scroll to explore",
         "about.label":"About","about.title":"Hi, I'm Alexandru.",
-        "about.p1":"I'm a software engineering student at Polytechnique Montréal, graduation expected 2027. I'm passionate about building clean, performant web applications — from the database layer to the user interface.",
-        "about.p2":"My background spans real-time multiplayer systems, RESTful APIs, robotics integration, and everything that connects them. I care about code that's readable, systems that scale, and products that feel right.",
+        "about.p1":"I'm a 4th-year Computer Engineering student at Polytechnique Montréal, with 95 of 120 credits completed. I'm passionate about building clean, maintainable software, from the database layer to the user interface.",
+        "about.p2":"My background spans real-time multiplayer systems, robotics integration, cross-platform desktop software, and RESTful APIs. I care about code that's readable, systems that scale, and products that feel right.",
         "about.p3":"Currently open to new opportunities.",
         "stack.frontend":"Frontend","stack.backend":"Backend","stack.db":"Database & Systems","stack.other":"Also familiar with",
+        "experience.label":"Experience","experience.period":"June — August 2026","experience.title":"Software Development Intern","experience.company":"Devolutions · Lavaltrie, hybrid","experience.desc":"Developed C# and Avalonia features in response to client bugs and improvement requests. Built a cross-platform serial connection manager covering the terminal, connection flow, interface, and settings. Refactored certificate generation to add Linux support from a common foundation across three platforms.","experience.otherPeriod":"2022 — 2026","experience.otherTitle":"Other Professional Experience","experience.otherCompany":"Sciences en Folie · Vidéotron · Université de Montréal","experience.otherDesc":"Science outreach, customer advising, and structured data processing, building clear communication, organization, and quality-control habits.",
         "projects.label":"Selected Work",
         "p1.title":"Tactical RPG Platform","p1.role":"Full-Stack Developer — Web & Real-Time Systems",
         "p1.desc":"A full-featured multiplayer turn-based RPG built from scratch in a team of 6. Players battle on custom-designed grid maps, with a complete in-browser map editor, real-time game state synchronization, and a virtual AI opponent.",
@@ -287,16 +320,17 @@
         "contact.cv":"Download Resume (PDF)","footer.built":"Designed & built by Alexandru"
       },
       fr: {
-        "nav.about":"À propos","nav.projects":"Projets","nav.contact":"Contact",
+        "nav.about":"À propos","nav.experience":"Expérience","nav.projects":"Projets","nav.contact":"Contact",
         "hero.label":"Développeur Web · Montréal",
         "hero.line1":"Je construis des choses","hero.line2pre":"qui ","hero.line2em":"fonctionnent vraiment.",
-        "hero.desc":"Étudiant en génie informatique à Polytechnique Montréal, en 4e année. Je développe des applications web full-stack, des systèmes temps réel, et tout ce qui s'y connecte.",
+        "hero.desc":"Étudiant en 4e année de génie informatique à Polytechnique Montréal, avec 95 crédits sur 120 complétés. Je développe des applications web full-stack, des systèmes temps réel et des logiciels multiplateformes.",
         "hero.cta1":"Voir les projets","hero.cta2":"Me contacter","hero.scroll":"Défiler pour explorer",
         "about.label":"À propos","about.title":"Bonjour, je suis Alexandru.",
-        "about.p1":"Étudiant en génie informatique à Polytechnique Montréal, graduation prévue en 2027. Je suis passionné par la création d'applications web performantes — de la base de données jusqu'à l'interface utilisateur.",
-        "about.p2":"Mon parcours couvre les systèmes multijoueurs temps réel, les APIs REST, l'intégration robotique, et tout ce qui les relie. Je mets l'accent sur la lisibilité du code, la scalabilité des systèmes et la qualité de l'expérience produit.",
+        "about.p1":"Étudiant en 4e année de génie informatique à Polytechnique Montréal, avec 95 crédits sur 120 complétés. Je m'intéresse à la création de logiciels propres et maintenables, de la base de données jusqu'à l'interface utilisateur.",
+        "about.p2":"Mon parcours couvre les systèmes multijoueurs temps réel, l'intégration robotique, les logiciels de bureau multiplateformes et les APIs REST. Je mets l'accent sur la lisibilité du code, la scalabilité des systèmes et la qualité de l'expérience produit.",
         "about.p3":"Ouvert aux nouvelles opportunités.",
         "stack.frontend":"Frontend","stack.backend":"Backend","stack.db":"Base de données & Systèmes","stack.other":"Aussi à l'aise avec",
+        "experience.label":"Expérience","experience.period":"Juin — août 2026","experience.title":"Stagiaire en développement logiciel","experience.company":"Devolutions · Lavaltrie, hybride","experience.desc":"Développement de fonctionnalités en C# et Avalonia en réponse aux bogues et demandes d'amélioration des clients. Conception d'un gestionnaire multiplateforme de connexions série couvrant le terminal, la connexion, l'interface et les paramètres. Refactorisation de la génération de certificats afin d'ajouter la prise en charge de Linux à partir d'une base commune aux trois plateformes.","experience.otherPeriod":"2022 — 2026","experience.otherTitle":"Autres expériences professionnelles","experience.otherCompany":"Sciences en Folie · Vidéotron · Université de Montréal","experience.otherDesc":"Animation scientifique, conseil à la clientèle et traitement structuré de données, avec développement d'habitudes solides de communication, d'organisation et de contrôle qualité.",
         "projects.label":"Projets sélectionnés",
         "p1.title":"Plateforme de RPG Tactique","p1.role":"Développeur Full-Stack — Web & Systèmes Temps Réel",
         "p1.desc":"Un jeu de rôle tactique multijoueur complet développé en équipe de 6. Les joueurs s'affrontent sur des cartes personnalisées, avec un éditeur intégré, une synchronisation d'état de jeu en temps réel et un adversaire IA.",
